@@ -95,15 +95,15 @@ class TartanVO(object):
             flownp = flow.data.cpu().numpy()
             flownp = flownp * self.flow_norm
 
-        # calculate scale from GT posefile
-        if 'motion' in sample:
-            motions_gt = sample['motion']
-            scale = np.linalg.norm(motions_gt[:,:3], axis=1)
-            trans_est = posenp[:,:3]
-            trans_est = trans_est/np.linalg.norm(trans_est,axis=1).reshape(-1,1)*scale.reshape(-1,1)
-            posenp[:,:3] = trans_est 
-        else:
-            print('    scale is not given, using 1 as the default scale value..')
+        # # calculate scale from GT posefile
+        # if 'motion' in sample:
+        #     motions_gt = sample['motion']
+        #     scale = np.linalg.norm(motions_gt[:,:3], axis=1)
+        #     trans_est = posenp[:,:3]
+        #     trans_est = trans_est/np.linalg.norm(trans_est,axis=1).reshape(-1,1)*scale.reshape(-1,1)
+        #     posenp[:,:3] = trans_est 
+        # else:
+        #     print('    scale is not given, using 1 as the default scale value..')
 
         print("{} Pose inference using {}s: \n{}".format(self.test_count, inferencetime, posenp))
         return posenp, flownp
